@@ -1,4 +1,4 @@
-package java.home;
+package code.home;
 
 public class Main {
     public static void main(String[] args) {
