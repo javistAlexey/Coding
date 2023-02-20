@@ -44,6 +44,7 @@ public class _13 {
 
         System.out.println(romanToInt(s1));
     }
+
     static int romanToInt(String s) {
         Map<Character, Integer> map = new HashMap<>(Map.of(
                 'I', 1,
@@ -56,15 +57,16 @@ public class _13 {
 
         int result = 0;
         char[] chars = s.toCharArray();
-        for (int i = chars.length-1; i >=0 ; i--) {
+        for (int i = chars.length - 1; i >= 0; i--) {
 
+//todo  сделать эффективнее через switch operator
 
         }
-        int length = chars.length-1;
+        int length = chars.length - 1;
         while (length >= 0) {
             if (result != 0) {
-                result +=  map.get(chars[length]) >= map.get(chars[length + 1]) ?
-                         map.get(chars[length]) : -map.get(chars[length]);
+                result += map.get(chars[length]) >= map.get(chars[length + 1]) ?
+                        map.get(chars[length]) : -map.get(chars[length]);
             } else {
                 result = map.get(chars[length]);
             }
