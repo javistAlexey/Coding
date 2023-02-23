@@ -1,12 +1,17 @@
 package code.LeedCode;
 
+import java.util.Arrays;
+
 public class _540 {
     public static void main(String[] args) {
         int[] nums = new int[]{1, 1, 2, 3, 3, 4, 4, 5, 5};
         int[] nums1 = new int[]{3};
         int[] nums2 = new int[]{1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6};
 
+
         System.out.println(singleNonDuplicate(nums1));
+        System.out.println(singleNonDuplicate2(nums1));
+        System.out.println(singleNonDuplicate3(nums1));
     }
 
     private static int singleNonDuplicate(int[] nums) {
@@ -36,5 +41,16 @@ public class _540 {
         }
 
         return -1;
+    }
+    private static int singleNonDuplicate2(int[] nums) {
+        return Arrays.stream(nums).reduce((x, y) -> x ^ y).orElse(0);
+    }
+
+    private static int singleNonDuplicate3(int[] nums) {
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum ^= nums[i];
+        }
+        return sum;
     }
 }
