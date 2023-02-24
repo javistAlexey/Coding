@@ -24,17 +24,67 @@ package code.LeedCode;
  */
 public class _2 {
     public static void main(String[] args) {
+        ListNode l1 = new ListNode(2, new ListNode(4, new ListNode(3)));
+        ListNode l2 = new ListNode(5, new ListNode(6, new ListNode(4)));
+
+
+        System.out.println(Solution.addTwoNumbers(l1, l2).toString());
+
 
     }
 
-    class Solution {
-        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    static class Solution {
+        public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
-            return l1;
+            ListNode head = new ListNode();
+            ListNode l3 = head;
+            int carry = 0;
+
+            while ((l1 != null) || (l2 != null)) {
+                int x = (l1 != null) ? l1.val : 0;
+                int y = (l2 != null) ? l2.val : 0;
+                int sum = x + y + carry;
+                carry = sum / 10;
+                sum = sum % 10;
+                ListNode node = new ListNode(sum);
+                l3.next = node;
+
+                if (l1 != null) {
+                    l1 = l1.next;
+                }
+                if (l2 != null) {
+                    l2 = l2.next;
+                }
+                l3 = l3.next;
+            }
+            if (carry > 0) {
+                ListNode node = new ListNode(carry);
+                l3.next = node;
+            }
+            return head.next;
+        }
+
+
+        public ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+            return rec(l1, l2);
+        }
+
+        public ListNode rec(ListNode l1, ListNode l2) {
+            if (l1 == null && l2 == null) return null;
+            if (l1 == null) l1 = new ListNode(0);
+            if (l2 == null) l2 = new ListNode(0);
+            int value = l1.val + l2.val;
+            if (value > 9) {
+                value %= 10;
+                if (l1.next == null) l1.next = new ListNode(1);
+                else l1.next.val = l1.next.val + 1;
+            }
+
+            return new ListNode(value, rec(l1.next, l2.next));
         }
     }
 
-    class ListNode {
+    static class ListNode {
         int val;
         ListNode next;
         ListNode() {
