@@ -32,10 +32,10 @@ public class _415 {
         long duration = TimeUnit.MICROSECONDS.toMillis(endTime - startTime);
         System.out.println("Время выполнения метода " + duration + " мс");
 
-         startTime = System.nanoTime();
+        startTime = System.nanoTime();
         System.out.println(addStrings2(s1, s2));
-         endTime = System.nanoTime();
-         duration = TimeUnit.MICROSECONDS.toMillis(endTime - startTime);
+        endTime = System.nanoTime();
+        duration = TimeUnit.MICROSECONDS.toMillis(endTime - startTime);
         System.out.println("Время выполнения метода " + duration + " мс");
 
         startTime = System.nanoTime();
@@ -47,67 +47,57 @@ public class _415 {
     }
 
 
-
     private static String addStrings(String num1, String num2) {
         StringBuilder res = new StringBuilder();
         int carry = 0;
         var length1 = num1.length();
         var length2 = num2.length();
-        int index = 0;
 
-        while (length1 > 0 || length2 > 0 || carry > 0) {
-            int temp = 0;
+        while (length1 > 0 || length2 > 0) {
+            int digit1 = length1 > 0 ? Character.getNumericValue(num1.charAt(length1 - 1)) : 0;
+            int digit2 = length2 > 0 ? Character.getNumericValue(num2.charAt(length2 - 1)) : 0;
 
-            if (length1 > 0) {
-                int digit1 = Character.getNumericValue(num1.charAt(length1 - 1));
-                temp = temp + digit1;
-                length1--;
-            }
-            if (length2 > 0) {
-                int digit2 = Character.getNumericValue(num2.charAt(length2 - 1));
-                temp = temp + digit2;
-                length2--;
-            }
-            if (carry > 0) {
-                temp = temp + carry;
-            }
-            carry=temp/10;
-            temp=temp%10;
+           int temp = digit1+digit2+carry;
+            carry = temp / 10;
 
-            res = res.append(temp);
+            res = res.append(temp%10);
+            length1--;
+            length2--;
+        }
+        if (carry > 0) {
+            res = res.append(carry);
         }
         return res.reverse().toString();
     }
 
-     static String addStrings2(String num1, String num2) {
-        BigInteger i=new BigInteger(num1);
-        BigInteger j=new BigInteger(num2);
-        BigInteger x =i.add(j);
+    static String addStrings2(String num1, String num2) {
+        BigInteger i = new BigInteger(num1);
+        BigInteger j = new BigInteger(num2);
+        BigInteger x = i.add(j);
         String s = x.toString();
         return s;
     }
 
     static String addStrings3(String num1, String num2) {
 
-        int carry =0;
+        int carry = 0;
         StringBuilder sb = new StringBuilder();
         int i = num1.length() - 1;
         int j = num2.length() - 1;
 
-        while(i>=0 || j>=0)
-        {
-            int a = i>=0 ? num1.charAt(i) -'0' : 0;
-            int b = j>=0 ? num2.charAt(j) -'0': 0;
+        while (i >= 0 || j >= 0) {
+            int a = i >= 0 ? Character.getNumericValue(num1.charAt(i)) : 0;
+            int b = j >= 0 ? num2.charAt(j) - '0' : 0;
 
-            int sum = carry+a+b;
+            int sum = carry + a + b;
             carry = sum / 10;
-            sb.append(sum%10);
+            sb.append(sum % 10);
             i--;
             j--;
 
         }
 
-        if(carry !=0)
+        if (carry != 0)
             sb.append(carry);
 
         return sb.reverse().toString();
