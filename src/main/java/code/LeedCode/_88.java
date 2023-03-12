@@ -36,51 +36,49 @@ public class _88 {
         int[] nums3 = {2, 5, 6};
         int m = 3;
         int n = 3;
-
-        System.out.println(Arrays.toString(merge(nums1, m, nums3, n)));
-
+        merge(nums1, m, nums3, n);
     }
 
-    private static int[] merge(int[] nums1, int m, int[] nums2, int n) {
-        if (m == 0) {
-            return nums2;
-        }
-        if (n == 0) {
-            return nums1;
-        }
+    private static void merge(int[] nums1, int m, int[] nums2, int n) {
+        int p1 = m - 1;
+        int p2 = n - 1;
+        int i = m + n - 1;
 
-        int[] res = new int[m + n];
-
-        int index = n > m ? n : m;
-        int iM = 0;
-        int iN = 0;
-
-        while (iM < m && iN < n) {
-            if (nums1[iM] < nums2[iN]) {
-                res[iM + iN] = nums1[iM];
-                if (iM < m) {
-                    iM++;
-                }
-            } else {
-                res[iM + iN] = nums2[iN];
-                if (iN < n) {
-                    iN++;
-                }
+        while (p2 >= 0) {
+            if (p1 >= 0 && nums1[p1] > nums2[p2]) {
+                nums1[i--] = nums1[p1--];
+            }
+            else {
+                nums1[i--] = nums2[p2--];
             }
         }
-
-        if (iM == m) {
-            for (int j = 0; j < n - iN; j++) {
-                res[iM + iN + j] = nums2[iN + j];
-            }
-        } else {
-            for (int j = 0; j < m - iM; j++) {
-                res[iN + iM + j] = nums1[iM + j];
-            }
-        }
-        nums1= Arrays.copyOf(res,res.length);
         System.out.println(Arrays.toString(nums1));
-        return res;
+    }
+
+    private static void merge1(int[] nums1, int m, int[] nums2, int n) {
+
+        if (m == 0) {
+            System.out.println(Arrays.toString(nums2));
+
+        } else {
+            int iM = m - 1;
+            int iN = n - 1;
+
+            while (iM >= 0 && iN >= 0) {
+                if (nums1[iM] > nums2[iN]) {
+                    nums1[iM + iN + 1] = nums1[iM];
+                    if (iM > 0) {
+                        iM--;
+                    } else break;
+                } else {
+                    nums1[iM + iN + 1] = nums2[iN];
+                    if (iN > 0) {
+                        iN--;
+                    } else break;
+                }
+            }
+            System.out.println(Arrays.toString(nums1));
+        }
 
     }
 
